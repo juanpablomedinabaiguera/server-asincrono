@@ -1,42 +1,65 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Monitor de Luz Ambiental</title>
-
+    <meta charset='utf-8'>
+    <title>Selector de Color RGB</title>
     <style>
         body {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            font-family: 'Segoe UI', sans-serif;
+                background-color: black;
+                text-align: center;
+                font-family: Arial;
         }
-
         h1 {
-            font-family: 'Segoe UI', sans-serif;
+                color: white;
         }
 
-        .lectura {
-            border: 3px dotted white;
-            border-radius: 20px;
-            padding: 25px;
-            margin: 30px auto;
-            width: 300px;
+        .color_actual {
+                        color: white;
+                        font-size: 20px;
         }
 
-        .porcentaje {
-            font-weight: bold;
-            font-size: 40px;
+        .contenedor {
+                        display: flex;
+                        justify-content: center;
+        }
+
+        .btn_color {
+                    width: 80px;
+                    height: 80px;
+                    border: 3px solid white;
+                    border-radius: 50%;
+        }
+
+        .rojo {
+                background-color: red;
+        }
+
+        .verde {
+                background-color: green;
+        }
+
+        .azul {
+                background-color: blue;
+        }
+
+        .blanco {
+                background-color: white;
+        }
+
+        .apagado {
+                background-color: #34495e;
         }
     </style>
 </head>
-
 <body>
-
-    <h1>Monitor de Luz Ambiental</h1>
-
-    <div class="lectura">
-        <span>Nivel de Luz: <span class="porcentaje">50%</span></span>
+    <h1>Selector de Color RGB</h1>
+    <span class="color_actual">Color Actual: <p>__TEXTO_BOTON__</p></span>
+    <div class="contenedor">
+        <a href='/rojo'><button class="btn_color rojo"></button></a>
+        <a href='/verde'><button class="btn_color verde"></button></a>
+        <a href='/azul'><button class="btn_color azul"></button></a>
+        <a href='/blanco'><button class="btn_color blanco"></button></a>
+        <a href='/off'><button class="btn_color apagado"></button></a>
     </div>
 
 </body>

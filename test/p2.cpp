@@ -6,15 +6,14 @@
 const char* ssid = "CESJT";
 const char* password = "itisjtsmg";
 
-String textoBoton;
+String textoBoton;  //porcentaje
+String notoBotxeT;  //color
 
-const int ventilador = 23;
-const int apagado = 0;
-const int bajo = 80;
-const int media = 175;
-const int alta = 255;
+const int ldr = 23;
 
-volatile int velocidad;
+int valorldr = 0;
+int mapeo = 0;
+int porcentaje;
 
 // Servidor Asíncrono 
 AsyncWebServer server(80);
@@ -24,47 +23,46 @@ const char pagina_template[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
-  <title>Control ventilador</title>
-  <style>
-    body {  background-color: #ecf0f1;
-            text-align: center;
-            padding-top: 50px;
-        }
-    .titulo {   font-family: 'Arial Black';
-                font-weight: bold;
-                color: #2c3e50; 
-            }
-    .boton {    width: 180px;
-                height: 60px;
-                border: 1px solid black;
-                border-radius: 15px;
-                display: block;
-                margin: 10px auto;
-                cursor: pointer;
-        }
-    .A {
-            background-color: #c0392b;
-        }
-    .B {
-            background-color: #2980b9;
-        }
-    .M {
-            background-color: #27ae60;
-        }
-    .H {
-            background-color: #f39c12;
-        }
-  </style>
-</head>
-<body>
-  <h1 class='titulo'>CONTROL DE VENTILADOR</h1>
-  <p>Velocidad Actual: <span><p>TEXTO_VELOCIDAD</p></span></p>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
+    <title>Luz ambiental :></title>
 
-    <a href='/off'><button class="boton A">Apagado</button></a>
-    <a href='/low'><button class="boton B">Baja</button></a>
-    <a href='/mesium'><button class="boton M">Media</button></a>
-    <a href='/high'><button class="boton H">Alta</button></a>
+    <style>
+        body {
+            background-color: __COLOR__;        
+            color: white;                       
+            text-align: center;                 
+            font-family: 'Segoe UI';
+        }
+/*#2c3e50 (azul oscuro) para noche
+#f1c40f (amarillo) para día
+#e67e22 (naranja) para atardecer
+*/
+        h1 {
+            font-family: 'Segoe UI';
+        }
+
+        .lectura {
+            border: 3px dotted white;
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .porcentaje {
+            font-weight: bold;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Monitor de Luz Ambiental</h1>
+
+    <div class="lectura">
+        <span>Nivel de Luz: <span class="porcentaje">__PORCENTAJE_LUZ__</span></span>
+    </div>
+
 </body>
 </html>
 )rawliteral";
@@ -72,7 +70,7 @@ const char pagina_template[] PROGMEM = R"rawliteral(
 void setup() {
   Serial.begin(115200);
 
-  pinMode(ventilador, OUTPUT);
+  pinMode(ldr, INPUT);
 
   Serial.print("Conectando a ");
   Serial.println(ssid);
@@ -95,38 +93,23 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    String pagina = pagina_template; //hago una variable para no modificar a la original
-    //parte para cambiar lo que dice el boton una vez que se prende o apaga
-    pagina.replace("__TEXTO_VELOCIDAD__", textoBoton);
+    String pagina = pagina_template;
+    pagina.replace("__PORCENTAJE_LUZ__", textoBoton);
+    pagina.replace("__COLOR__", textoBoton);
+    
     request->send(200, "text/html", pagina);
-  });
-
-  server.on("/off", HTTP_GET, [](AsyncWebServerRequest *request) {        //apagado
-    digitalWrite(ventilador,LOW);
-    textoBoton = "APAGADO";
-    request->redirect("/"); //lo mando a la ruta (/)
-  });
-
-  server.on("/low", HTTP_GET, [](AsyncWebServerRequest *request) {        //lento
-    analogWrite(ventilador,bajo);
-    textoBoton = "BAJA";
-    request->redirect("/"); //lo mando a la ruta (/)
-  });
-
-  server.on("/mesium", HTTP_GET, [](AsyncWebServerRequest *request) {     //maomeno
-    analogWrite(ventilador,media);
-    textoBoton = "MEDIA";
-    request->redirect("/"); //lo mando a la ruta (/)
-  });
-
-  server.on("/high", HTTP_GET, [](AsyncWebServerRequest *request) {       //rapido
-    analogWrite(ventilador,alta);
-    textoBoton = "ALTA";
-    request->redirect("/"); //lo mando a la ruta (/)
   });
 
   // Iniciar servidor
   server.begin();
+
 }
 
-void loop() {}
+void loop() {
+    valorldr = analogRead(ldr);
+    mapeo = map(valorldr, 0, 4095, 0, 100);
+    textoBoton = mapeo;
+    if(mapeo<=25) notoBotxeT = "#2c3e50";
+    else if(mapeo>50&&mapeo<75) notoBotxeT = "#f1c40f";
+    else if(mapeo>=75) notoBotxeT = "#e67e22";
+}
