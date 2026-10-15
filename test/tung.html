@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Refrigeración</title>
+    <style>
+        body {
+            background-color: #ecf0f1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 30px;
+        }
+        h1 {
+            font-family: "Arial Black", sans-serif;
+            font-size: 34px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .panel-temp {
+            width: 550px;
+            padding: 30px;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+        .contenedor-botones {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .btn {
+            padding: 15px 20px;
+            font-size: 15px;
+        }
+
+        .btn-detenido {
+            background-color: #7f8c8d;
+            color: white;
+        }
+
+        .btn-ventilacion {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-intensivo {
+            background-color: #154360;
+            color: white;
+        }
+        .detenido {
+            background-color: #bdc3c7;
+            color: black;
+        }
+
+        .ventilacion {
+            background-color: #85c1e9;
+            color: black;
+        }
+
+        .intensivo {
+            background-color: #154360;
+            color: white;
+        }
+        .panel-temp {
+                width: 100%;
+                padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>SISTEMA DE REFRIGERACIÓN</h1>
+    <div class="panel-temp detenido">
+        <p>MODO ACTUAL: __TEXTO_MODO__</p>
+        <p>TEMPERATURA OBJETIVO: __TEXTO_OBJETIVO</p>
+        <p>ESTADO DEL VENTILADOR: __TEXTO_ESTADO__</p>
+    </div>
+    <div class="contenedor-botones">
+        <a href="/detenido" class="btn btn-detenido">DETENIDO</a>
+        <a href="/ventilacion" class="btn btn-ventilacion">VENTILACIÓN</a>
+        <a href="/intensivo" class="btn btn-intensivo">ENFRIAMIENTO INTENSIVO</a>
+    </div>
+</body>
+</html>

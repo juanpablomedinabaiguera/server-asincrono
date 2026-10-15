@@ -1,65 +1,59 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <meta charset='utf-8'>
-    <title>Selector de Color RGB</title>
+    <meta charset="UTF-8">
+    <title>Generador de tonos</title>
     <style>
         body {
-                background-color: black;
-                text-align: center;
-                font-family: Arial;
+            background-color: #f0f0f0;
+            text-align: center;
         }
         h1 {
-                color: white;
+            font-family: Verdana;
+            text-align: center;
         }
-
-        .color_actual {
-                        color: white;
-                        font-size: 20px;
+        .est_nota {
+            width: 400px;
+            height: 80px;
+            border: 2px dashed #000;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
         .contenedor {
-                        display: flex;
-                        justify-content: center;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
         }
-
-        .btn_color {
-                    width: 80px;
-                    height: 80px;
-                    border: 3px solid white;
-                    border-radius: 50%;
+        .btn_nota {
+            width: 60px;
+            height: 150px;
+            background-color: white;
+            border: 2px solid black;
         }
-
-        .rojo {
-                background-color: red;
-        }
-
-        .verde {
-                background-color: green;
-        }
-
-        .azul {
-                background-color: blue;
-        }
-
-        .blanco {
-                background-color: white;
-        }
-
-        .apagado {
-                background-color: #34495e;
+        .silencio {
+            background-color: red;
+            color: white;
         }
     </style>
 </head>
+
 <body>
-    <h1>Selector de Color RGB</h1>
-    <span class="color_actual">Color Actual: <p>__TEXTO_BOTON__</p></span>
+
+    <h1>GENERADOR DE TONOS</h1>
+
+    <div class="est_nota">
+        Tocando: __NOTA__
+    </div>
+
     <div class="contenedor">
-        <a href='/rojo'><button class="btn_color rojo"></button></a>
-        <a href='/verde'><button class="btn_color verde"></button></a>
-        <a href='/azul'><button class="btn_color azul"></button></a>
-        <a href='/blanco'><button class="btn_color blanco"></button></a>
-        <a href='/off'><button class="btn_color apagado"></button></a>
+        <a href="/do"><button class="btn_nota">Do</button></a>
+        <a href="/re"><button class="btn_nota">Re</button></a>
+        <a href="/mi"><button class="btn_nota">Mi</button></a>
+        <a href="/sol"><button class="btn_nota">Sol</button></a>
+        <a href="/la"><button class="btn_nota">La</button></a>
+        <a href="/off"><button class="btn_nota silencio">Silencio</button></a>
     </div>
 
 </body>

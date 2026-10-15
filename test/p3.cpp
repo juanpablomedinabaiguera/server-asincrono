@@ -2,7 +2,7 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 
-
+//variables
 const char* ssid = "CESJT";
 const char* password = "itisjtsmg";
 
@@ -17,7 +17,7 @@ volatile int config = 0;
 // Servidor Asíncrono 
 AsyncWebServer server(80);
 
-// HTML -> no cambia
+// HTML
 const char pagina_template[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
@@ -76,24 +76,24 @@ const char pagina_template[] PROGMEM = R"rawliteral(
     <h1>Selector de Color RGB</h1>
     <span class="color_actual">Color Actual: <p>__TEXTO_BOTON__</p></span>
     <div class="contenedor">
-        <button class="btn_color rojo"></button>
-        <button class="btn_color verde"></button>
-        <button class="btn_color azul"></button>
-        <button class="btn_color blanco"></button>
-        <button class="btn_color apagado"></button>
+        <a href='/rojo'><button class="btn_color rojo"></button></a>
+        <a href='/verde'><button class="btn_color verde"></button></a>
+        <a href='/azul'><button class="btn_color azul"></button></a>
+        <a href='/blanco'><button class="btn_color blanco"></button></a>
+        <a href='/off'><button class="btn_color apagado"></button></a>
     </div>
 
 </body>
 </html>
 )rawliteral";
-
+//setup
 void setup() {
   Serial.begin(115200);
-
+  //declaro pines
   pinMode(r, OUTPUT);
   pinMode(g, OUTPUT);
   pinMode(b, OUTPUT);
-
+  
   Serial.print("Conectando a ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
